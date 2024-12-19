@@ -58,7 +58,7 @@ MonoBehaviour:
   rocketLaunchSource: {fileID: 4106980459981506074}
   rocketMineHitSource: {fileID: 1184987544417903654}
   rocketMissSource: {fileID: 5868151133081906611}
-  nextLevelSound: {fileID: 0}
+  nextLevelSound: {fileID: 4284674346051337354}
 --- !u!82 &586428837255119682
 AudioSource:
   m_ObjectHideFlags: 0
