@@ -1,8 +1,10 @@
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PadsDisplay : MonoBehaviour
 {
+    public GameController gameController;
     public GameObject row1Parent;
     public GameObject row2Parent;
     public GameObject row3Parent;
@@ -43,7 +45,15 @@ public class PadsDisplay : MonoBehaviour
                 }
                 else
                 {
-                    pads[i, j].color = Color.white;
+                    Vector2Int coords = new Vector2Int(j, i);
+                    if (gameController.currentLevel.mineGridCoords == coords)
+                    {
+                        pads[i, j].color = Color.yellow;
+                    }
+                    else
+                    {
+                        pads[i, j].color = Color.white;
+                    }
                 }
             }
         }

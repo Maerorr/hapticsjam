@@ -673,6 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a49cfc4f01f1bf4cb69c2038073a494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 230879089}
   row1Parent: {fileID: 782584764}
   row2Parent: {fileID: 2113093102}
   row3Parent: {fileID: 2012461993}
@@ -761,6 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minesDebug: {fileID: 447083451}
+  input: {fileID: 230879087}
   bandWidth: 0.1
   isTuned: 0
 --- !u!1 &240493876

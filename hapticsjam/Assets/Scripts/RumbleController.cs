@@ -22,7 +22,7 @@ public class RumbleController : MonoBehaviour
     public float lowFreq = 1.0f; // below 0.25 there is no rumble, and it seems that the rumble is either 0 or 100%
     public float highFreq = 1.0f;
 
-    public void RumbleForSeconds(float seconds)
+    public void PlayRumbleForSeconds(float seconds)
     {
         rumbleTime = seconds;
     }
@@ -34,7 +34,7 @@ public class RumbleController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RumbleForSeconds(1.0f);
+            PlayRumbleForSeconds(1.0f);
         }
         
         if (rumbleTime > 0)

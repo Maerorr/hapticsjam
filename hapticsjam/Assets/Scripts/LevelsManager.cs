@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
@@ -19,7 +16,7 @@ public class GameController : MonoBehaviour
 
     public MInesDebug minesDebug;
     private float currentIndicatorX01;
-    private LevelData currentLevel;
+    public LevelData currentLevel;
     public AkaiFireController input;
     
     public LevelData GenerateLevel()
@@ -45,11 +42,13 @@ public class GameController : MonoBehaviour
     private void OnEnable()
     {
         input.ButtonsJustPressed += OnButtonsJustPressed;
+        input.ShootButtonPressed += TryShootTorpedo;
     }
 
     private void OnDisable()
     {
         input.ButtonsJustPressed -= OnButtonsJustPressed;
+        input.ShootButtonPressed -= TryShootTorpedo;
     }
 
     private Vector2Int selectedTarget;
@@ -67,6 +66,19 @@ public class GameController : MonoBehaviour
 
     private void TryShootTorpedo()
     {
+        if (selectedTarget == currentLevel.mineGridCoords)
+        {
+            // shot correctly
+            // TODO : play shoot sound and hit
+            RumbleController.Instance.PlayRumbleForSeconds(2.0f);
+            Debug.Log("shot hit");
+        }
+        else
+        {
+            // missed
+            // TODO : play shoot sound and miss
+            Debug.Log("shot missed");
+        }
     }
 
     public void NextLevel()
