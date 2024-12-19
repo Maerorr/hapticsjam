@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
 
         Vector2Int lastButton = buttons[^1];
         selectedTarget = lastButton;
-        
+
         sm.CheckSound(selectedTarget, currentLevel.mineGridCoords);
     }
 
@@ -149,7 +149,7 @@ public class GameController : MonoBehaviour
             float toMineSigned = (currentLevel.mine - currentIndicatorX01);
             if (lastToMineSigned != 0 && Mathf.Sign(toMineSigned) * Mathf.Sign(lastToMineSigned) < 0) // different signs
             {
-                sm.SonarSound(Mathf.FloorToInt(currentLevel.mine * 16f));
+                sm.SonarSound(currentLevel.mineGridCoords.x);
             }
             lastToMineSigned = toMineSigned;
         }

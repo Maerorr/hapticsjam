@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource rocketMineHitSource;
     public AudioSource rocketMissSource;
     public AudioSource nextLevelSound;
+    public AudioSource stepSound;
 
     private float boatX = 7.5f;
 
@@ -75,5 +76,10 @@ public class SoundManager : MonoBehaviour
     public void NextLevelSound()
     {
         nextLevelSound.Play();
+    }
+
+    public void StepSound()
+    {
+        stepSound.Play();
     }
 }
