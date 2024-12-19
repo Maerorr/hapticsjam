@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +32,11 @@ public class PadsDisplay : MonoBehaviour
         // knob2.localScale = new Vector3(5.0f, 1.0f, 1.0f);
         // knob3.localScale = new Vector3(5.0f, 1.0f, 1.0f);
         // knob4.localScale = new Vector3(5.0f, 1.0f, 1.0f);
+    }
+
+    private void Update()
+    {
+        OnPadStatesUpdate(gameController.input.padStates);
     }
 
     public void OnPadStatesUpdate(int[,] padStates)

@@ -25,12 +25,12 @@ public class GameController : MonoBehaviour
     {
         var level = new LevelData();
         level.mine = Random.value; // 0-1
-        for (int j = 0; j < 10000; j++) // for testing
-        {
-            var coords1 = new Vector2Int(Mathf.FloorToInt(Random.Range(0, 17)), Mathf.FloorToInt(Random.Range(0, 5)));
-            Assert.IsTrue(coords1.x >= 0 && coords1.x <= 16 && coords1.y >= 0 && coords1.y <= 4);
-        }
-        var coords = new Vector2Int(Mathf.FloorToInt(Random.Range(0, 17)), Mathf.FloorToInt(Random.Range(0, 5)));
+        // for (int j = 0; j < 10000; j++) // for testing
+        // {
+            // var coords1 = new Vector2Int(Mathf.FloorToInt(Random.Range(0, 17)), Mathf.FloorToInt(Random.Range(0, 5)));
+            // Assert.IsTrue(coords1.x >= 0 && coords1.x <= 16 && coords1.y >= 0 && coords1.y <= 4);
+        // }
+        var coords = new Vector2Int(Mathf.FloorToInt(Random.Range(0, 16)), Mathf.FloorToInt(Random.Range(0, 4)));
         level.mineGridCoords = (coords);
 
         return level;
@@ -66,6 +66,8 @@ public class GameController : MonoBehaviour
 
         Vector2Int lastButton = buttons[^1];
         selectedTarget = lastButton;
+        
+        sm.CheckSound(selectedTarget, currentLevel.mineGridCoords);
     }
 
     private void TryShootTorpedo()
@@ -84,7 +86,6 @@ public class GameController : MonoBehaviour
         else
         {
             // missed
-            Debug.Log("shot missed");
             sm.LaunchRocketSound(selectedTarget.x, false);
         }
     }
