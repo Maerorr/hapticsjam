@@ -26,11 +26,6 @@ public class GameController : MonoBehaviour
     {
         var level = new LevelData();
         level.mine = Random.value; // 0-1
-        // for (int j = 0; j < 10000; j++) // for testing
-        // {
-            // var coords1 = new Vector2Int(Mathf.FloorToInt(Random.Range(0, 17)), Mathf.FloorToInt(Random.Range(0, 5)));
-            // Assert.IsTrue(coords1.x >= 0 && coords1.x <= 16 && coords1.y >= 0 && coords1.y <= 4);
-        // }
         var coords = new Vector2Int(Mathf.FloorToInt(Random.Range(0, 16)), Mathf.FloorToInt(Random.Range(0, 4)));
         level.mineGridCoords = (coords);
 
@@ -81,22 +76,25 @@ public class GameController : MonoBehaviour
         if (selectedTarget == currentLevel.mineGridCoords)
         {
             // shot correctly
-            RumbleController.Instance.PlayRumbleForSeconds(2.0f);
             sm.LaunchRocketSound(selectedTarget.x, true);
+            RumbleController.Instance.PlayRumbleForSeconds(0.35f);
             StartCoroutine(DelayedNextLevel());
         }
         else
         {
             // missed
             sm.LaunchRocketSound(selectedTarget.x, false);
+            RumbleController.Instance.PlayRumbleForSeconds(0.35f);
         }
     }
 
     IEnumerator DelayedNextLevel()
     {
-        yield return new WaitForSeconds(1.75f);
-        sm.NextLevelSound();
+        yield return new WaitForSeconds(1.50f);
+        RumbleController.Instance.PlayRumbleForSeconds(1.0f);
         yield return new WaitForSeconds(2.0f);
+        sm.NextLevelSound();
+        yield return new WaitForSeconds(1.0f);
         NextLevel();
     }
 
