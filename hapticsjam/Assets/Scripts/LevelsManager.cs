@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator DelayedNextLevel()
     {
+        yield return new WaitForSeconds(1.75f);
         sm.NextLevelSound();
         yield return new WaitForSeconds(2.0f);
         NextLevel();
