@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour
     {
         minesDebug.minePos01 = level.mine;
         minesDebug.indicatorPos01 = currentIndicatorX01;
+        minesDebug.mine.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 500 * bandWidth);
     }
 
     private float lastKnobState;
@@ -59,6 +60,32 @@ public class GameController : MonoBehaviour
             return;
         }
 
+        MoveMineSeeker();
+        TryPlaySonarSound();
+        UpdateDebugUI(currentLevel);
+    }
+
+    public float bandWidth = 0.1f; // band is cenetered on the mine
+    public bool isTuned;
+    
+    private void TryPlaySonarSound()
+    {
+        float toMineSigned = (currentLevel.mine - currentIndicatorX01);
+        float toMineAbs = Mathf.Abs(currentLevel.mine - currentIndicatorX01);
+        if (toMineAbs > bandWidth / 2) // /2 bc mine is centered
+        {
+            // too far away from mine, we're not tuned
+            isTuned = false;
+        }
+        else
+        {
+            // we are within tolerance, so we are tuned and can now search with buttons
+            isTuned = true;
+        }
+    }
+
+    private void MoveMineSeeker()
+    {
         float knobDelta = lastKnobState - AkaiFireController.Instance.knobsStates[0];
         lastKnobState = AkaiFireController.Instance.knobsStates[0];
 
@@ -73,8 +100,6 @@ public class GameController : MonoBehaviour
             currentIndicatorX01 += 1;
         }
         
-        Debug.Log(currentIndicatorX01);   
-        
-        UpdateDebugUI(currentLevel);
+        // Debug.Log(currentIndicatorX01);   
     }
 }
