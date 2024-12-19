@@ -156,7 +156,7 @@ public class GameController : MonoBehaviour
     }
 
     public float tickSoundDistance;
-    private float knobDistanceTravelled;
+    private float lastTickPoint;
     private void MoveMineSeeker()
     {
         if (AkaiFireController.Instance == null)
@@ -166,14 +166,6 @@ public class GameController : MonoBehaviour
         }
         float knobDelta = lastKnobState - AkaiFireController.Instance.knobsStates[0];
         lastKnobState = AkaiFireController.Instance.knobsStates[0];
-
-        knobDistanceTravelled += knobDelta;
-        if (knobDistanceTravelled > tickSoundDistance)
-        {
-            // TODO : play tick sound
-            Debug.Log("tick");
-            knobDistanceTravelled -= tickSoundDistance;
-        }
         
         // stupid
         currentIndicatorX01 += knobDelta;
@@ -184,6 +176,19 @@ public class GameController : MonoBehaviour
         while (currentIndicatorX01 < 0)
         {
             currentIndicatorX01 += 1;
+        }
+
+        float distToTick = Mathf.Abs(currentIndicatorX01 - lastTickPoint);
+        if (distToTick > 0.75) // we wrapped around
+        {
+            lastTickPoint = currentIndicatorX01; // cheat
+            Debug.Log("wrap");
+        }
+        else if (distToTick > tickSoundDistance)
+        {
+            lastTickPoint = currentIndicatorX01;
+            Debug.Log(lastTickPoint);
+            sm.StepSound();
         }
 
         // Debug.Log(currentIndicatorX01);   
