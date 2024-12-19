@@ -22,6 +22,7 @@ public class AkaiFireController : MonoBehaviour
     {
         InputSystem.onDeviceChange += (device, change) =>
         {
+            if (!Application.isPlaying) return;
             if (change != InputDeviceChange.Added) return;
 
             var midiDevice = device as Minis.MidiDevice;
@@ -51,7 +52,7 @@ public class AkaiFireController : MonoBehaviour
                 else
                 {
                     knobsStates[knob_num] -= knob_sensitivity;
-                }  
+                }
 
                 Debug.Log(knobsStates[0] + " " + knobsStates[1] + " " + knobsStates[2] + " " + knobsStates[3]);
 
