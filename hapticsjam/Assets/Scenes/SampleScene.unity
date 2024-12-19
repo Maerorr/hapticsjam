@@ -767,7 +767,7 @@ MonoBehaviour:
   sm: {fileID: 0}
   bandWidth: 0.1
   isTuned: 0
-  tickSoundDistance: 0
+  tickSoundDistance: 0.06
 --- !u!114 &230879090
 MonoBehaviour:
   m_ObjectHideFlags: 0
