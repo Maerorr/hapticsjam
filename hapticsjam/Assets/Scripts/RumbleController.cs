@@ -8,13 +8,14 @@ public class RumbleController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject);
+            Debug.LogError("too many rumble controllers");
+            // Destroy(gameObject);
         }
     }
 
@@ -29,6 +30,12 @@ public class RumbleController : MonoBehaviour
     
     public void Update()
     {
+        if (Gamepad.current == null)
+        {
+            Debug.LogError("gamepad is null");
+            return;
+        }
+        
         Gamepad.current.SetMotorSpeeds(0, 0);
         rumbleTime -= Time.deltaTime;
         

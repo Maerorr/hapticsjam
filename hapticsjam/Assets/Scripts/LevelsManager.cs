@@ -58,6 +58,7 @@ public class GameController : MonoBehaviour
         if (isTuned == false)
         {
             // TODO : play feedback audio that we cannot select target because we are not tuned
+            return;
         }
 
         Vector2Int lastButton = buttons[^1];
@@ -66,6 +67,11 @@ public class GameController : MonoBehaviour
 
     private void TryShootTorpedo()
     {
+        if (isTuned == false)
+        {
+            return;
+        }
+        
         if (selectedTarget == currentLevel.mineGridCoords)
         {
             // shot correctly
@@ -81,9 +87,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void NextLevel()
+    private void NextLevel()
     {
         currentLevel = GenerateLevel();
+        Debug.Log("level generated");
     }
     
     private void UpdateDebugUI(LevelData level)
@@ -140,6 +147,11 @@ public class GameController : MonoBehaviour
 
     private void MoveMineSeeker()
     {
+        if (AkaiFireController.Instance == null)
+        {
+            Debug.LogError("Akai is null");
+            return;
+        }
         float knobDelta = lastKnobState - AkaiFireController.Instance.knobsStates[0];
         lastKnobState = AkaiFireController.Instance.knobsStates[0];
 
