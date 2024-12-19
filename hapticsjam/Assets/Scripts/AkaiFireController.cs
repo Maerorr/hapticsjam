@@ -9,6 +9,9 @@ public class AkaiFireController : MonoBehaviour
     public static AkaiFireController Instance;
 
     public event Action<List<Vector2Int>> ButtonsJustPressed;
+
+    public event Action ShootButtonPressed;
+
     private void Awake()
     {
         Instance = this;
@@ -77,17 +80,22 @@ public class AkaiFireController : MonoBehaviour
                 // object is only useful to specify the target note (note
                 // number, channel number, device name, etc.) Use the velocity
                 // argument as an input note velocity.
-                // Debug.Log(string.Format(
-                //     "Note On #{0} ({1}) vel:{2:0.00} ch:{3} dev:'{4}'",
-                //     note.noteNumber,
-                //     note.shortDisplayName,
-                //     velocity,
-                //     (note.device as Minis.MidiDevice)?.channel,
-                //     note.device.description.product
-                // ));
+                Debug.Log(string.Format(
+                    "Note On #{0} ({1}) vel:{2:0.00} ch:{3} dev:'{4}'",
+                    note.noteNumber,
+                    note.shortDisplayName,
+                    velocity,
+                    (note.device as Minis.MidiDevice)?.channel,
+                    note.device.description.product
+                ));
 
                 // Calculate the pad number
                 int pad_num = note.noteNumber;
+                if (note.noteNumber == 33)
+                {
+                    ShootButtonPressed?.Invoke();
+                    return;
+                }
                 if (pad_num < lowest_pad_num || pad_num > highest_pad_num) return;
                 pad_num -= lowest_pad_num;
 
@@ -127,7 +135,7 @@ public class AkaiFireController : MonoBehaviour
                 // Update the pad state
                 previousPadStates[row, col] = padStates[row, col];
                 padStates[row, col] = 0;
-                
+
                 // Update the pads display
                 padsDisplay.OnPadStatesUpdate(padStates);
             };
@@ -137,7 +145,7 @@ public class AkaiFireController : MonoBehaviour
     public List<Vector2Int> GetJustPressedButtons()
     {
         var ret = new List<Vector2Int>();
-        
+
         for (int row = 0; row < padStates.GetLength(0); row++)
         {
             for (int col = 0; col < padStates.GetLength(1); col++)
@@ -148,7 +156,7 @@ public class AkaiFireController : MonoBehaviour
                     {
                         ret.Add(new Vector2Int(col, row));
                     }
-                }                
+                }
             }
         }
 

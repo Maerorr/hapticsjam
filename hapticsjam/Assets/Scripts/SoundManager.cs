@@ -15,6 +15,13 @@ public class SoundManager : MonoBehaviour
 
     private float boatX = 7.5f;
 
+    public SoundManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void CheckSound(Vector2Int hit, Vector2Int minePos)
     {
         float distance = Mathf.Abs(hit.x - minePos.x) + Mathf.Abs(hit.y - minePos.y);
