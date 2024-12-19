@@ -10,6 +10,12 @@ public class AkaiFireController : MonoBehaviour
     private int pads_per_row = 16;
     private int rows = 4;
 
+    private float[] knobsStates = new float[4];
+    private int lowest_knob_num = 16;
+    private int highest_knob_num = 19;
+    private float knob_left_right_threshold = 0.5f;
+    private float knob_sensitivity = 0.1f;
+
     public PadsDisplay padsDisplay;
 
     void Start()
@@ -23,14 +29,33 @@ public class AkaiFireController : MonoBehaviour
 
             midiDevice.onWillControlChange += (control, value) =>
             {
-                Debug.Log(string.Format(
-                    "Control Change #{0} ({1}) val:{2:0.00} ch:{3} dev:'{4}'",
-                    control.controlNumber,
-                    control.shortDisplayName,
-                    value,
-                    midiDevice.channel,
-                    midiDevice.description.product
-                ));
+                // Debug.Log(string.Format(
+                //     "Control Change #{0} ({1}) val:{2:0.00} ch:{3} dev:'{4}'",
+                //     control.controlNumber,
+                //     control.shortDisplayName,
+                //     value,
+                //     midiDevice.channel,
+                //     midiDevice.description.product
+                // ));
+
+                // Calculate the knob number
+                int knob_num = control.controlNumber;
+                if (knob_num < lowest_knob_num || knob_num > highest_knob_num) return;
+                knob_num -= lowest_knob_num;
+
+                // Update the knob state
+                if (value > knob_left_right_threshold)
+                {
+                    knobsStates[knob_num] += knob_sensitivity;
+                }
+                else
+                {
+                    knobsStates[knob_num] -= knob_sensitivity;
+                }  
+
+                Debug.Log(knobsStates[0] + " " + knobsStates[1] + " " + knobsStates[2] + " " + knobsStates[3]);
+
+                padsDisplay.OnKnobStatesUpdate(knobsStates);
             };
 
             midiDevice.onWillNoteOn += (note, velocity) =>
@@ -40,14 +65,14 @@ public class AkaiFireController : MonoBehaviour
                 // object is only useful to specify the target note (note
                 // number, channel number, device name, etc.) Use the velocity
                 // argument as an input note velocity.
-                Debug.Log(string.Format(
-                    "Note On #{0} ({1}) vel:{2:0.00} ch:{3} dev:'{4}'",
-                    note.noteNumber,
-                    note.shortDisplayName,
-                    velocity,
-                    (note.device as Minis.MidiDevice)?.channel,
-                    note.device.description.product
-                ));
+                // Debug.Log(string.Format(
+                //     "Note On #{0} ({1}) vel:{2:0.00} ch:{3} dev:'{4}'",
+                //     note.noteNumber,
+                //     note.shortDisplayName,
+                //     velocity,
+                //     (note.device as Minis.MidiDevice)?.channel,
+                //     note.device.description.product
+                // ));
 
                 // Calculate the pad number
                 int pad_num = note.noteNumber;
@@ -67,13 +92,13 @@ public class AkaiFireController : MonoBehaviour
 
             midiDevice.onWillNoteOff += (note) =>
             {
-                Debug.Log(string.Format(
-                    "Note Off #{0} ({1}) ch:{2} dev:'{3}'",
-                    note.noteNumber,
-                    note.shortDisplayName,
-                    (note.device as Minis.MidiDevice)?.channel,
-                    note.device.description.product
-                ));
+                // Debug.Log(string.Format(
+                //     "Note Off #{0} ({1}) ch:{2} dev:'{3}'",
+                //     note.noteNumber,
+                //     note.shortDisplayName,
+                //     (note.device as Minis.MidiDevice)?.channel,
+                //     note.device.description.product
+                // ));
 
                 // Calculate the pad number
                 int pad_num = note.noteNumber;
