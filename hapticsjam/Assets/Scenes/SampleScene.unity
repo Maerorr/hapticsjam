@@ -731,7 +731,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  knob_sensitivity: 0.025
+  knob_sensitivity: 0.005
   padsDisplay: {fileID: 200941762}
 --- !u!4 &230879088
 Transform:
@@ -761,6 +761,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minesDebug: {fileID: 447083451}
+  bandWidth: 0.1
+  isTuned: 0
 --- !u!1 &240493876
 GameObject:
   m_ObjectHideFlags: 0

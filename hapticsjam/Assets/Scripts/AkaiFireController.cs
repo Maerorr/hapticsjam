@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Minis;
 using UnityEngine.InputSystem;
@@ -7,12 +8,14 @@ public class AkaiFireController : MonoBehaviour
 {
     public static AkaiFireController Instance;
 
+    public event Action<List<Vector2Int>> ButtonsJustPressed;
     private void Awake()
     {
         Instance = this;
     }
 
-    private int[,] padStates = new int[4, 16];
+    public int[,] padStates = new int[4, 16];
+    private int[,] previousPadStates = new int[4, 16];
     private int lowest_pad_num = 54;
     private int highest_pad_num = 117;
     private int pads_per_row = 16;
@@ -93,7 +96,10 @@ public class AkaiFireController : MonoBehaviour
                 int col = pad_num % pads_per_row;
 
                 // Update the pad state
+                previousPadStates[row, col] = padStates[row, col];
                 padStates[row, col] = 1;
+                var justPressed = GetJustPressedButtons();
+                ButtonsJustPressed?.Invoke(justPressed);
 
                 // Update the pads display
                 padsDisplay.OnPadStatesUpdate(padStates);
@@ -119,10 +125,33 @@ public class AkaiFireController : MonoBehaviour
                 int col = pad_num % pads_per_row;
 
                 // Update the pad state
+                previousPadStates[row, col] = padStates[row, col];
                 padStates[row, col] = 0;
+                
                 // Update the pads display
                 padsDisplay.OnPadStatesUpdate(padStates);
             };
         };
+    }
+
+    public List<Vector2Int> GetJustPressedButtons()
+    {
+        var ret = new List<Vector2Int>();
+        
+        for (int row = 0; row < padStates.GetLength(0); row++)
+        {
+            for (int col = 0; col < padStates.GetLength(1); col++)
+            {
+                if (padStates[row, col] != previousPadStates[row, col]) // state changed
+                {
+                    if (padStates[row, col] != 0) // 0 means its off = not pressed
+                    {
+                        ret.Add(new Vector2Int(col, row));
+                    }
+                }                
+            }
+        }
+
+        return ret;
     }
 }

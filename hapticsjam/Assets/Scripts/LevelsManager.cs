@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering;
@@ -18,6 +20,7 @@ public class GameController : MonoBehaviour
     public MInesDebug minesDebug;
     private float currentIndicatorX01;
     private LevelData currentLevel;
+    public AkaiFireController input;
     
     public LevelData GenerateLevel()
     {
@@ -37,6 +40,33 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         NextLevel();
+    }
+
+    private void OnEnable()
+    {
+        input.ButtonsJustPressed += OnButtonsJustPressed;
+    }
+
+    private void OnDisable()
+    {
+        input.ButtonsJustPressed -= OnButtonsJustPressed;
+    }
+
+    private Vector2Int selectedTarget;
+    
+    private void OnButtonsJustPressed(List<Vector2Int> buttons)
+    {
+        if (isTuned == false)
+        {
+            // TODO : play feedback audio that we cannot select target because we are not tuned
+        }
+
+        Vector2Int lastButton = buttons[^1];
+        selectedTarget = lastButton;
+    }
+
+    private void TryShootTorpedo()
+    {
     }
 
     public void NextLevel()
@@ -61,17 +91,18 @@ public class GameController : MonoBehaviour
         }
 
         MoveMineSeeker();
-        TryPlaySonarSound();
+        HandleSonarSeeking();
         UpdateDebugUI(currentLevel);
     }
 
     public float bandWidth = 0.1f; // band is cenetered on the mine
     public bool isTuned;
-    
-    private void TryPlaySonarSound()
+
+    private float lastToMineSigned;
+    private void HandleSonarSeeking()
     {
-        float toMineSigned = (currentLevel.mine - currentIndicatorX01);
         float toMineAbs = Mathf.Abs(currentLevel.mine - currentIndicatorX01);
+        
         if (toMineAbs > bandWidth / 2) // /2 bc mine is centered
         {
             // too far away from mine, we're not tuned
@@ -81,6 +112,17 @@ public class GameController : MonoBehaviour
         {
             // we are within tolerance, so we are tuned and can now search with buttons
             isTuned = true;
+        }
+
+        if (toMineAbs <= bandWidth) // do not play beep when we change sign due to wrapping around from 0 to 1
+        {
+            float toMineSigned = (currentLevel.mine - currentIndicatorX01);
+            if (lastToMineSigned != 0 && Mathf.Sign(toMineSigned) * Mathf.Sign(lastToMineSigned) < 0) // different signs
+            {
+                // TODO : play sonar sound because we passed the mine
+                Debug.Log("BEEP");
+            }
+            lastToMineSigned = toMineSigned;
         }
     }
 
