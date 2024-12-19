@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     {
         // basic gameplay assumes you "tune" the knob until you are near the mine
         // value and then look for position on the grid of buttons and when you think you're near you shoot.
-        
+
         public float mine; // values 0-1 on x axis where the mines are located
         public Vector2Int mineGridCoords; // indexed same as mines
     }
@@ -18,7 +18,9 @@ public class GameController : MonoBehaviour
     private float currentIndicatorX01;
     public LevelData currentLevel;
     public AkaiFireController input;
-    
+
+    public SoundManager sm;
+
     public LevelData GenerateLevel()
     {
         var level = new LevelData();
@@ -36,6 +38,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        sm = FindAnyObjectByType<SoundManager>();
         NextLevel();
     }
 
@@ -52,12 +55,12 @@ public class GameController : MonoBehaviour
     }
 
     private Vector2Int selectedTarget;
-    
+
     private void OnButtonsJustPressed(List<Vector2Int> buttons)
     {
         if (isTuned == false)
         {
-            // TODO : play feedback audio that we cannot select target because we are not tuned
+            sm.DeafSound();
         }
 
         Vector2Int lastButton = buttons[^1];
@@ -69,15 +72,14 @@ public class GameController : MonoBehaviour
         if (selectedTarget == currentLevel.mineGridCoords)
         {
             // shot correctly
-            // TODO : play shoot sound and hit
             RumbleController.Instance.PlayRumbleForSeconds(2.0f);
-            Debug.Log("shot hit");
+            sm.LaunchRocketSound(selectedTarget.x, true);
         }
         else
         {
             // missed
-            // TODO : play shoot sound and miss
             Debug.Log("shot missed");
+            sm.LaunchRocketSound(selectedTarget.x, false);
         }
     }
 
@@ -85,7 +87,7 @@ public class GameController : MonoBehaviour
     {
         currentLevel = GenerateLevel();
     }
-    
+
     private void UpdateDebugUI(LevelData level)
     {
         minesDebug.minePos01 = level.mine;
@@ -94,7 +96,7 @@ public class GameController : MonoBehaviour
     }
 
     private float lastKnobState;
-    
+
     private void Update()
     {
         if (Application.isPlaying == false)
@@ -114,7 +116,7 @@ public class GameController : MonoBehaviour
     private void HandleSonarSeeking()
     {
         float toMineAbs = Mathf.Abs(currentLevel.mine - currentIndicatorX01);
-        
+
         if (toMineAbs > bandWidth / 2) // /2 bc mine is centered
         {
             // too far away from mine, we're not tuned
@@ -131,8 +133,7 @@ public class GameController : MonoBehaviour
             float toMineSigned = (currentLevel.mine - currentIndicatorX01);
             if (lastToMineSigned != 0 && Mathf.Sign(toMineSigned) * Mathf.Sign(lastToMineSigned) < 0) // different signs
             {
-                // TODO : play sonar sound because we passed the mine
-                Debug.Log("BEEP");
+                sm.SonarSound(Mathf.FloorToInt(currentLevel.mine * 16f));
             }
             lastToMineSigned = toMineSigned;
         }
@@ -153,7 +154,7 @@ public class GameController : MonoBehaviour
         {
             currentIndicatorX01 += 1;
         }
-        
+
         // Debug.Log(currentIndicatorX01);   
     }
 }
