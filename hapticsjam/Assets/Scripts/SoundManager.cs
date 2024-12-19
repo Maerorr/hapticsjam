@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource rocketLaunchSource;
     public AudioSource rocketMineHitSource;
     public AudioSource rocketMissSource;
+    public AudioSource nextLevelSound;
 
     private float boatX = 7.5f;
 
@@ -69,5 +70,10 @@ public class SoundManager : MonoBehaviour
             distance = Mathf.Sqrt(distance);
         }
         return distance;
+    }
+
+    public void NextLevelSound()
+    {
+        nextLevelSound.Play();
     }
 }

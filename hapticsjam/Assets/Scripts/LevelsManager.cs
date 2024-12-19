@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -76,18 +77,27 @@ public class GameController : MonoBehaviour
         {
             return;
         }
-        
+
         if (selectedTarget == currentLevel.mineGridCoords)
         {
             // shot correctly
             RumbleController.Instance.PlayRumbleForSeconds(2.0f);
             sm.LaunchRocketSound(selectedTarget.x, true);
+            StartCoroutine(DelayedNextLevel());
         }
         else
         {
             // missed
             sm.LaunchRocketSound(selectedTarget.x, false);
         }
+    }
+
+    IEnumerator DelayedNextLevel()
+    {
+        yield return new WaitForSeconds(1.75f);
+        sm.NextLevelSound();
+        yield return new WaitForSeconds(2.0f);
+        NextLevel();
     }
 
     private void NextLevel()
