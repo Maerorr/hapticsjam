@@ -1,20 +1,28 @@
+using System;
 using UnityEngine;
 using Minis;
 using UnityEngine.InputSystem;
 
 public class AkaiFireController : MonoBehaviour
 {
+    public static AkaiFireController Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private int[,] padStates = new int[4, 16];
     private int lowest_pad_num = 54;
     private int highest_pad_num = 117;
     private int pads_per_row = 16;
     private int rows = 4;
 
-    private float[] knobsStates = new float[4];
+    public float[] knobsStates = new float[4];
     private int lowest_knob_num = 16;
     private int highest_knob_num = 19;
     private float knob_left_right_threshold = 0.5f;
-    private float knob_sensitivity = 0.1f;
+    public float knob_sensitivity = 0.1f;
 
     public PadsDisplay padsDisplay;
 
@@ -54,7 +62,7 @@ public class AkaiFireController : MonoBehaviour
                     knobsStates[knob_num] -= knob_sensitivity;
                 }
 
-                Debug.Log(knobsStates[0] + " " + knobsStates[1] + " " + knobsStates[2] + " " + knobsStates[3]);
+                // Debug.Log(knobsStates[0] + " " + knobsStates[1] + " " + knobsStates[2] + " " + knobsStates[3]);
 
                 padsDisplay.OnKnobStatesUpdate(knobsStates);
             };

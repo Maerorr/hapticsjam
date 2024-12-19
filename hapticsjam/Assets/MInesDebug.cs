@@ -2,14 +2,22 @@ using UnityEngine;
 
 public class MInesDebug : MonoBehaviour
 {
-    public float minePos;
-    public float indicatorPos;
+    public float minePos01;
+    public float indicatorPos01;
 
-    public Transform indicator;
-    public Transform mine;
+    public RectTransform indicator;
+    public RectTransform mine;
     
     void Update()
     {
-        indicator.transform.position = new Vector3(x, indicator.transform.position, indicator.transform.position);
+        {
+            float x = indicatorPos01 * 500; // width of visualization
+            indicator.anchoredPosition = new Vector2(x, indicator.anchoredPosition.y);
+        }
+
+        {
+            float x = minePos01 * 500;
+            mine.anchoredPosition = new Vector2(x, mine.anchoredPosition.y);
+        }
     }
 }

@@ -25,10 +25,10 @@ public class PadsDisplay : MonoBehaviour
             pads[3, i] = row4Parent.transform.GetChild(i).gameObject.GetComponent<Image>();
         }
 
-        knob1.localScale = new Vector3(5.0f, 1.0f, 1.0f);
-        knob2.localScale = new Vector3(5.0f, 1.0f, 1.0f);
-        knob3.localScale = new Vector3(5.0f, 1.0f, 1.0f);
-        knob4.localScale = new Vector3(5.0f, 1.0f, 1.0f);
+        // knob1.localScale = new Vector3(5.0f, 1.0f, 1.0f);
+        // knob2.localScale = new Vector3(5.0f, 1.0f, 1.0f);
+        // knob3.localScale = new Vector3(5.0f, 1.0f, 1.0f);
+        // knob4.localScale = new Vector3(5.0f, 1.0f, 1.0f);
     }
 
     public void OnPadStatesUpdate(int[,] padStates)
@@ -52,9 +52,9 @@ public class PadsDisplay : MonoBehaviour
     public void OnKnobStatesUpdate(float[] knobsStates)
     {
         // set scale as 1.0f + knobState
-        knob1.localScale = new Vector3(5.0f + knobsStates[0], 1.0f, 1.0f);
-        knob2.localScale = new Vector3(5.0f + knobsStates[1], 1.0f, 1.0f);
-        knob3.localScale = new Vector3(5.0f + knobsStates[2], 1.0f, 1.0f);
-        knob4.localScale = new Vector3(5.0f + knobsStates[3], 1.0f, 1.0f);
+        // knob1.localScale = new Vector3(5.0f + knobsStates[0], 1.0f, 1.0f);
+        // knob2.localScale = new Vector3(5.0f + knobsStates[1], 1.0f, 1.0f);
+        // knob3.localScale = new Vector3(5.0f + knobsStates[2], 1.0f, 1.0f);
+        // knob4.localScale = new Vector3(5.0f + knobsStates[3], 1.0f, 1.0f);
     }
 }

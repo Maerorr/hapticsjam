@@ -706,6 +706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230879088}
   - component: {fileID: 230879087}
+  - component: {fileID: 230879089}
   m_Layer: 0
   m_Name: FIRECONTROLLER
   m_TagString: Untagged
@@ -725,6 +726,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9430b93167356478d03eefba0ed3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knobsStates:
+  - 0
+  - 0
+  - 0
+  - 0
+  knob_sensitivity: 0.025
   padsDisplay: {fileID: 200941762}
 --- !u!4 &230879088
 Transform:
@@ -741,6 +748,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &230879089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230879086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55ac810b5184a2bae722908b8ad8d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minesDebug: {fileID: 447083451}
 --- !u!1 &240493876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,7 +1527,7 @@ GameObject:
   - component: {fileID: 447083449}
   - component: {fileID: 447083451}
   m_Layer: 5
-  m_Name: Image
+  m_Name: minesdebug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1584,8 +1604,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c9e69e37b3ff7e468569c4423e45b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minePos: 0
-  indicatorPos: 0
+  minePos01: 0
+  indicatorPos01: 0
+  indicator: {fileID: 1394115510}
+  mine: {fileID: 1534857500}
 --- !u!1 &464894465
 GameObject:
   m_ObjectHideFlags: 0
@@ -4387,8 +4409,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 447083448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4689,7 +4711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534857501
