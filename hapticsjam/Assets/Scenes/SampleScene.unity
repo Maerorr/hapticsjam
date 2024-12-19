@@ -767,6 +767,7 @@ MonoBehaviour:
   sm: {fileID: 0}
   bandWidth: 0.1
   isTuned: 0
+  tickSoundDistance: 0
 --- !u!114 &230879090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2113,16 +2114,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &638515809 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1184987544417903654, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-  m_PrefabInstance: {fileID: 873536667}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &638515810 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5868151133081906611, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-  m_PrefabInstance: {fileID: 873536667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &642179510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3259,6 +3250,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 74344748097449347, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 9451f09414adeb646b2e2828c12a1d70, type: 3}
+    - target: {fileID: 74344748097449347, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9451f09414adeb646b2e2828c12a1d70, type: 3}
     - target: {fileID: 531573291083964908, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 972.4791
@@ -3299,46 +3298,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1184987544417903654, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_Volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1184987544417903654, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: 9f04196d004881a47a703c02fe6dff0e, type: 3}
-    - target: {fileID: 1184987544417903654, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9f04196d004881a47a703c02fe6dff0e, type: 3}
     - target: {fileID: 3445921883267482540, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4106980459981506074, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: 56d928414d08a264d8e03717057c8fc0, type: 3}
-    - target: {fileID: 4106980459981506074, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 56d928414d08a264d8e03717057c8fc0, type: 3}
-    - target: {fileID: 4519311601479192492, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: rocketMissSource
-      value: 
-      objectReference: {fileID: 638515809}
-    - target: {fileID: 4519311601479192492, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: rocketMineHitSource
-      value: 
-      objectReference: {fileID: 638515810}
-    - target: {fileID: 5868151133081906611, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: 501cb63912614bb4f97203085652348a, type: 3}
-    - target: {fileID: 5868151133081906611, guid: 03a96ba20501af14eafcf3931de70d81, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 501cb63912614bb4f97203085652348a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
